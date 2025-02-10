@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+</head>
+<body>
+    <header>
+        <figure>
+     <img src="abnas.jpeg"  width="40"> 
+     <figcaption>Abnas HIgh School</figcaption>
+     
+    </figure>  
+<h1>Abnas High School</h1>
+<nav>
+    <ul style="list-style-type: none;">
+        <li>
+          <a href="/index.html">home</a> 
+        </li>
+        <li>
+          <a href="/about.html"> About</a> 
+        </li>
+        <li>
+         <a href="/contact.html">Contact</a> 
+        </li>
+        <li><a href="/courses.html">Courses</a></li>
+    </ul>
+</nav>
+<hr>
+
+
+    </header>
+    <h1>Contact</h1>
+    <dialog id="myDialog">
+        <h2>Contact</h2>
+        <p>email:abnas@gmail.com</p>
+        <p>phone:0745000789</p>
+        <form method="dialog">
+            <button>Close contact</button>
+        </form>
+    </dialog>
+    <button onclick="myDialog.showModal()">OPen contact</button>
+    <h1>Contact us</h1>
+    <legend>Contact us</legend>
+    <label for="Title">Title</label>
+    <select name="title" id="title">
+        <option value="Mr">Mr</option>
+        <option value="Mrs">Mrs</option>
+        <option value="Miss">Miss</option>
+        <br><br>
+        <label for="Name"></label>
+        <input type="text" id="name" name="name">
+        <br><br>
+        <label for="email">email</label>
+        <input type="text" id="email" name="email">
+        <br><br>
+        <label for="subject">subject</label>
+        <input type="text" id="subject" name="subject">
+        <br><br>
+        <label for="message">message</label>
+        <textarea name="message" id="message" cols="30" rows="10"></textarea>
+        <br>
+        <input type="submit" id="submit" name="submit">
+
+    </select>
+</body>
+</html>
