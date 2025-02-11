@@ -1,0 +1,26 @@
+h1{
+    color: blue;
+    text-decoration: underline;
+    font-weight: bolder;
+    text-align: center
+
+}
+   header{background-color: bisque;
+} 
+header nav ul{
+    list-style-type: none;
+    display: flex;
+    justify-content: center
+    ;
+    padding: 8px;
+}
+header nav li{
+    margin: 4px;
+
+}
+header nav ul li a{
+    text-decoration: none;
+    font-size: large;
+    font-weight: 600;
+
+}
