@@ -51,8 +51,18 @@ nav{
     box-shadow: 0 2px 4px black;
 
 }
+
 .newsletter.form{
+    background-color: brown;
+    margin: 30px;
+    margin-right: 30px;
     
+    
+}
+button{
+    background-color: aqua;
+    margin: 20px;
+margin-right: 50px;
 }
 .navigation{ border: 4px;
 
@@ -63,7 +73,7 @@ nav{
     
     
 
-}
+
 .nav-list{
     display: flex;
     list-style: none;
