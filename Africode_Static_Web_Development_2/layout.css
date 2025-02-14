@@ -1,4 +1,4 @@
-.display-block{
+/* /* .display-block{
     background-color: aqua;
     display: block;
     width: 100%;
@@ -25,4 +25,72 @@ li{
     list-style: none;
     display: inline-block;
     margin-right: 20px;
+    padding: 4px;
+    list-style-position: outside;
+} */
+ /* .position-static{
+    background-color: blue;
+    position: static;
+    top: 40px;
+    left: 40px;
+ }
+ .position-relative{
+    background-color: brown;
+    position: relative;
+    top: 10px;
+    left: 50px;
+    
+ }
+ .position-absolute{
+    background-color: aqua;
+    position: absolute;
+    top: 10px;
+     }
+ .position-container{
+    background-color: blueviolet;
+    position: relative;
+   ;
+ }
+.position-fixed{
+    top: 0px;
+    background-color: yellow;
+    position: fixed;
+    height: 20px;
 }
+.position-sticky{
+    background-color: aquamarine;
+    position: sticky;
+    top: 0px;
+    bottom: 0px;
+    height: 40px;
+    
+}
+.div-container{
+    float: left;
+    padding: 55px;
+}
+.div-1{
+    background-color: brown;
+}
+.div-2{
+    background-color: yellow;
+}
+.div-3{
+    background-color: aqua;
+}
+img{
+    float:none;
+    padding: 40px;
+} */ 
+ /* layout_float */
+ .float-image{
+    width: 200px;
+    margin-right: 20px;
+    float: left;
+
+ }
+ #float-right{
+    width: 200px;
+    float: right;
+    margin-left: 15px;
+ }
