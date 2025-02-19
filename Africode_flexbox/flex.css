@@ -1,0 +1,18 @@
+.container{
+    display: flex;
+    width: 80%;
+    border: 2px solid black;
+}
+.item{
+    background-color: blue;
+    padding: 10px;
+    margin: 10px;
+   flex: 1 1 200px;
+    width: 200px;
+}
+.item:first-child{
+    flex-shrink: 2;
+}
+.item:nth-child(2){
+    flex-shrink: 3;
+}
