@@ -1,0 +1,47 @@
+.simple-page{
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+    gap: 20px;
+    padding: 20px;
+    grid-template-areas: 'header header right-sidebar'
+    'left-sidebar content right-sidebar'
+    'footer footer right-sidebar';
+    grid-template-columns: 1fr 4fr 1fr;
+ }
+ .header{
+    background-color: teal;
+    padding: 20px;
+    grid-area: header;
+
+    
+ }
+ .content{
+    background-color: aqua;
+    padding: 20px;
+min-height: 300px;
+grid-area: content;
+;
+
+
+ }
+ .footer{
+    background-color: #34495e;
+    padding: 20px;
+    color: white;
+    grid-area: footer;
+    
+ } 
+ .left-sidebar{
+    background-color: blue;
+    padding: 20px;
+    color: wheat;
+    grid-area: left-sidebar;
+    
+ }
+ .right-sidebar{
+    background-color: tomato;
+    padding: 20px;
+    color: cornflowerblue;
+    grid-area: right-sidebar;
+ }
