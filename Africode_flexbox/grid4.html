@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>auto-fill vs auto-fit</title>
+    <style>
+        .container1{
+            display: grid;
+            gap: 10px;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            grid-template-rows: 100px;
+            border: 1px solid black;
+            margin: 4px;
+        }
+        .container2{
+            display: grid;
+            gap: 10px;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            grid-template-rows: 100px ;
+            border: 1px solid black;
+            margin: 10px;}
+    </style>
+</head>
+<body>
+    <h1>auto-fill vs auto-fit</h1>
+    <div class="container1">
+        <div style="background-color: aqua;">auto-fit</div>
+        <div style="background-color: blueviolet;">auto-fit</div>
+        <div style="background-color: brown;">auto-fit</div>
+        <div style="background-color: cadetblue;">auto-fit</div>
+    </div>
+    <div class="container2">
+        <div style="background-color: aqua;">auto-fill</div>
+        <div style="background-color: blueviolet;">auto-fill</div>
+        <div style="background-color: brown;">auto-fill</div>
+        <div style="background-color: cadetblue;">auto-fill</div>
+    </div>
+    
+</body>
+</html>

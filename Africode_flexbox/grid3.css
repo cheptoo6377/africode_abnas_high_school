@@ -1,0 +1,106 @@
+body{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.6;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.lesson-section{
+    margin-bottom: 40px;
+}
+/* step 2 display styling */
+ .code{
+    background-color: aliceblue;
+    padding: 2px 6px;
+    border-radius: 8px;
+    
+    font-family: monospace;
+    
+}
+.code-block{
+    background-color: aliceblue
+    ;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+    font-family: monospace;
+    white-space: pre;
+}
+/* step 3 base-grid container */
+ .demo-grid{
+    display: grid;
+    gap: 10px;
+    margin: 20px 0;
+    background-color: aliceblue;
+    padding: 10px; */
+} 
+/* step 4 grid item base styling */
+ .demo-grid > div{
+    background-color: darkturquoise;
+    color: white;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+} 
+/* step 5 grid column layout */
+ .columns-demo{
+    grid-template-columns: minmax(100px,200px) 1fr 2fr;
+} 
+/* step 6 grid row layout */
+.rows-demo{
+
+    grid-template-rows: 100px minmax(50px auto 150px);
+ }
+/* step 7 grid areas layout */
+.areas-demo{
+    grid-template-areas: 'header header header'
+    'sidebar main main'
+   'footer footer footer' ;
+grid-template-columns: 200px 1fr 1fr;
+} 
+/* step 8 grid areas components */
+.areas-demo .header{
+    grid-area: header;
+    background-color: #2ecc71; */
+}
+ .areas-demo .sidebar{
+    grid-area: sidebar;
+    background-color: #e74c3c;
+}
+.areas-demo .main{
+    grid-area: main;
+    background-color: yellow;
+}
+.areas-demo .footer{
+    grid-area: footer;
+    background-color: palevioletred;} */
+    /* repeat function demo */
+    .repeat-demo{
+        grid-template-columns: repeat(3, 1fr); */}
+        /* /* repeat 3 equal columns} */
+    
+    
+    .auto-fit-demo{
+         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+        /* autofit 100px columns */}
+        /* autofill demo */
+         .auto-fill-demo{
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); */
+            /* autofill 100px columns  */
+        }
+        /* media queries-responsive for all columns */
+         @media (max-width: 768px){
+            .columns-demo{grid-template-columns: repeat(auto-fill, minmax(200px,1fr));}}
+      .areas-demo{
+        grid-template-areas: 'header'
+        'sidebar'
+        'main'
+        'footer';
+        grid-template-columns: 1fr;
+      }
+      .fit-content-demo{
+        grid-template-columns:1fr;} 
+
+        

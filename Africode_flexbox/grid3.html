@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Grid Layout: Core Properties & Functions</title>
+    <link rel="stylesheet" href="grid3.css">
+</head>
+<body>
+    <h1>CSS Grid Layout: Core Properties & Functions</h1>
+
+    <!-- Section 1: Grid Template Columns -->
+    <div class="lesson-section">
+        <h2>1. grid-template-columns</h2>
+        <p>This property defines the number and size of columns in your grid. You can use various units and functions to create flexible layouts:</p>
+        
+        <div class="code-block">
+            .grid {
+                display: grid;
+                grid-template-columns: minmax(100px, 200px) 1fr 2fr;
+            }
+        </div>
+
+        <p>In this example:</p>
+        <ul>
+            <li><code>minmax(100px, 200px)</code>: First column will be between 100px and 200px</li>
+            <li><code>1fr</code>: Second column takes 1 fraction of remaining space</li>
+            <li><code>2fr</code>: Third column takes 2 fractions of remaining space</li>
+        </ul>
+
+        <div class="demo-grid columns-demo">
+            <div>minmax(100px, 200px)</div>
+            <div>1fr</div>
+            <div>2fr</div>
+        </div>
+    </div>
+
+    <!-- Section 2: Grid Template Rows -->
+    <div class="lesson-section">
+        <h2>2. grid-template-rows</h2>
+        <p>Similar to columns, this property defines the height of each row:</p>
+
+        <div class="code-block">
+            .grid {
+                display: grid;
+                grid-template-rows: 100px minmax(50px, auto) 150px;
+            }
+        </div>
+
+        <p>This creates:</p>
+        <ul>
+            <li>First row: Fixed height of 100px</li>
+            <li>Second row: Minimum 50px, grows with content</li>
+            <li>Third row: Fixed height of 150px</li>
+        </ul>
+
+        <div class="demo-grid rows-demo">
+            <div>100px</div>
+            <div>minmax(50px, auto) <p></div>
+            <div>150px</div>
+        </div>
+    </div>
+
+    <!-- Section 3: Grid Template Areas -->
+    <div class="lesson-section">
+        <h2>3. grid-template-areas</h2>
+        <p>This property allows you to create named grid areas for a more semantic layout:</p>
+
+        <div class="code-block">
+            .grid {
+                display: grid;
+                grid-template-areas: 
+                    "header header header"
+                    "sidebar main main"
+                    "footer footer footer";
+                grid-template-columns: 200px 1fr 1fr;
+            }
+
+            .header { grid-area: header; }
+            .sidebar { grid-area: sidebar; }
+            .main { grid-area: main; }
+            .footer { grid-area: footer; }
+        </div>
+
+        <div class="demo-grid areas-demo">
+            <div class="header">Header</div>
+            <div class="sidebar">Sidebar</div>
+            <div class="main">Main Content</div>
+            <div class="footer">Footer</div>
+        </div>
+    </div>
+
+    <!-- Section 4: Functions & Values Reference -->
+    <div class="lesson-section">
+        <h2>Key Functions & Values</h2>
+        <p>Common functions you can use with these properties:</p>
+        <ul>
+            <li><code>minmax(min, max)</code>: Sets minimum and maximum size limits</li>
+            <li><code>repeat(n, size)</code>: Repeats a pattern n times</li>
+            <li><code>fit-content(size)</code>: Clamps size to content with a maximum</li>
+            <li><code>auto-fit</code>: Fits as many columns as possible</li>
+            <li><code>auto-fill</code>: Similar to auto-fit but keeps empty tracks</li>
+        </ul>
+
+        <p>Common units:</p>
+        <ul>
+            <li><code>fr</code>: Fraction of available space</li>
+            <li><code>%</code>: Percenta…!-- Section 5: Repeat Function -->
+                <div class="lesson-section">
+                    <h2>5. repeat() Function</h2>
+                    <p>The repeat() function creates a repeating pattern of columns or rows, making it easier to create uniform grid layouts:</p>
+                    
+                    <div class="code-block">
+                        .grid {
+                            display: grid;
+                            grid-template-columns: repeat(3, 1fr);
+                            /* Same as writing: 1fr 1fr 1fr */
+                        }
+                    </div>
+            
+                    <p>You can also mix repeat with other values:</p>
+                    <ul>
+                        <li><code>repeat(2, 200px) 1fr</code>: Two 200px columns followed by one flexible column</li>
+                        <li><code>repeat(3, minmax(100px, 1fr))</code>: Three equal flexible columns with minimum width</li>
+                    </ul>
+            
+                    <div class="demo-grid repeat-demo">
+                        <div>1</div><div>2</div><div>3</div>
+                        <div>4</div><div>5</div><div>6</div>
+                    </div>
+                </div>
+            
+                <!-- Section 6: Auto-fit & Auto-fill -->
+                <div class="lesson-section">
+                    <h2>6. auto-fit vs auto-fill</h2>
+                    <p>These keywords create responsive layouts that automatically adjust the number of columns based on container width:</p>
+            
+                    <div class="code-block">
+                        /* auto-fit collapses empty tracks */
+                        .auto-fit { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+            
+                        /* auto-fill preserves empty tracks */
+                        .auto-fill { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+                    </div>
+            
+                    <p>Key differences:</p>
+                    <ul>
+                        <li><code>auto-fit</code>: Expands items to fill space when there aren't enough to fill the row</li>
+                        <li><code>auto-fill</code>: Maintains empty column tracks, useful for future content</li>
+                    </ul>
+            
+                    <h3>Auto-fit Example:</h3>
+                    <div class="demo-grid auto-fit-demo">
+                        <div>Auto-fit Item</div>
+                        <div>Auto-fit Item</div>
+                        <div>Auto-fit Item</div>
+                    </div>
+            
+                    <h3>Auto-fill Example:</h3>
+                    <div class="demo-grid auto-fill-demo">
+                        <div>Auto-fill Item</div>
+                        <div>Auto-fill Item</div>
+                        <div>Auto-fill Item</div>
+                    </div>
+                </div>
+            
+                <!-- Section 7: fit-content -->
+                <div class="lesson-section">
+                    <h2>7. fit-content()</h2>
+                    <p>The fit-content() function sizes columns based on their content with a maximum limit:</p>
+            
+                    <div class="code-block">
+                        .grid {
+                            display: grid;
+                            grid-template-columns: fit-content(200px) 1fr fit-content(300px);
+                        }
+                    </div>
+            
+                    <p>How it works:</p>
+                    <ul>
+                        <li>Columns will grow to fit their content</li>
+                        <li>Won't exceed the specified maximum size</li>
+                        <li>If content is smaller, column will shrink to fit</li>
+                        <li>Useful for sidebars and navigation menus</li>
+                    </ul>
+            
+                    <div class="demo-grid fit-content-demo">
+                        <div>Short</div>
+                        <div>Longer content here</div>
+                        <div>Even longer content goes in this cell</div>
+                    </div>
+                </div>
+            </body>
+            </html>
