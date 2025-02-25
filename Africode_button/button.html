@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/button.css">
+</head>
+<style>
+    body{
+        display:  grid;
+    background-color: black;
+        grid-gap: 10px;
+        padding: 5px;
+        justify-content: center;
+        align-items: center;
+
+    }
+     .glow-button{
+    
+    color: whitesmoke;
+    padding: 15px 20px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 15px;
+    transition-duration: 0.3s;
+    margin: 30px 2px;
+    
+    
+}
+.neon-button{
+width: 200px;
+height: 100px;
+    ;
+    background-color:black;
+-webkit-box-shadow: #ff00ff 0 0 50px ;
+    box-shadow: #ff00ff 0 0 50px;
+          
+}
+  
+  
+    .gradient-button{background-color: #3366ff; 
+    position: relative;}
+
+    .gradient-button:hover{
+        
+    
+    background-image: linear-gradient(45deg, #3366ff, #33ccff, #00ffff,#40e0d0, #3366ff );}
+
+
+        
+    
+    
+
+.pulse-button{
+    background-color: black;
+    
+box-shadow:greenyellow 10px 10px  10px 1px;
+    -webkit-animation: pulse 1s infinite;
+    animation: pulse 1s infinite;
+}
+.pulse-button:hover{}
+.glow-buttton{
+    background-color: black;}
+    .glow-buttton:hover{
+        
+filter: drop-shadow(0 0 10px #ff0066) drop-shadow(0 0 20px #ff0066);
+    box-shadow: #ff0066 0 0 100px;
+    width: auto;}
+
+
+    
+    
+    @-webkit-keyframes pulse{
+        0%{
+            box-shadow: 0 0 20px 0 greenyellow;
+        }
+        50%{
+            box-shadow: 0 0 20px 20px greenyellow;
+        }
+        100%}{
+            box-shadow: 0 0 20px 0 greenyellow;
+        }
+
+
+    
+        
+            
+        
+        
+     
+        
+
+     
+        
+        
+</style>
+<body>
+    
+    <button class=" glow-button neon-button">
+        <input type="button" value="Neon button" id="neon-button" onclick="alert('Neon button')">
+        <label for="neon-button"></label>
+    </button>
+    <button class=" glow-button gradient-button">Gradient button</button>
+    <button class=" glow-button pulse-button">Pulse button</button>
+    <button class=" glow-button glow-buttton">Glow button</button>
+</body>
+</html>
