@@ -7,6 +7,8 @@ enrolment_args = reqparse.RequestParser()
 enrolment_args.add_argument('enrolment_date', type=date_parse)
 enrolment_args.add_argument('status',type=str)
 enrolment_args.add_argument('grade',type=str)
+enrolment_args.add_argument('student_id', type=int, required=True, help="student_id is required")
+enrolment_args.add_argument('course_id', type=int, required=True, help="course_id is required")
 
 
 enrolment_fields = {
@@ -32,7 +34,7 @@ class Enrolments(Resource):
         args = enrolment_args.parse_args()
 
         try:
-            new_enrolment = EnrolmentModel(enrolment_date=args['enrolment_date'], status=args['status'], grade=args['grade'])
+            new_enrolment = EnrolmentModel(enrolment_date=args['enrolment_date'], status=args['status'], grade=args['grade'], student_id=args['student_id'], course_id=args['course_id'])
             db.session.add(new_enrolment)
             db.session.commit()
             return new_enrolment, 201

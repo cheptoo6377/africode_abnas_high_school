@@ -36,8 +36,7 @@ class Students(Resource):
     
     @marshal_with(student_fields)
     def post(self):
-        args = student_args.parse_args
-
+        args = student_args.parse_args()
         try:
             new_student = StudentModel(first_name=args['first_name'], last_name=args['last_name'], student_id=args['student_id'], email=args['email'], date_of_birth=args['date_of_birth'], enrolment_date=args['enrolment_date'])
             db.session.add(new_student)

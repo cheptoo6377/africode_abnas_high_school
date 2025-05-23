@@ -11,6 +11,7 @@ fee_args.add_argument('fee_type', type=str, required=True, help="fee_type is req
 fee_args.add_argument('semester',type=str)
 fee_args.add_argument('payment_date', type=date_parse)
 fee_args.add_argument('status',type=str)
+fee_args.add_argument('student_id', type=int, required=True, help="student_id is required")
 
 fee_fields = {
     'id': fields.Integer,
@@ -35,7 +36,7 @@ class Fees(Resource):
         args = fee_args.parse_args()
 
         try:
-            new_fee = FeeModel(amount=args['amount'], fee_type=args['fee_type'], semester=args['semester'], payment_date=args['payment_date'], status=args['status'])
+            new_fee = FeeModel(amount=args['amount'], fee_type=args['fee_type'], semester=args['semester'], payment_date=args['payment_date'], status=args['status'], student_id=args['student_id'])
             db.session.add(new_fee)
             db.session.commit()
             return new_fee, 201

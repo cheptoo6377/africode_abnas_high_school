@@ -7,6 +7,7 @@ course_args = reqparse.RequestParser()
 course_args.add_argument('code', type=str, required=True, help="course_code is required")
 course_args.add_argument('name', type=str, required=True, help="course_name is required")
 course_args.add_argument('credits', type=int, required=True, help="credits is required")
+course_args.add_argument('teacher_id', type=int, required=True, help="teacher_id is required")
 
 
 course_fields = {
@@ -30,7 +31,7 @@ class Courses(Resource):
         args = course_args.parse_args()
 
         try:
-            new_course = CourseModel(code=args['code'], name=args['name'], credits=args['credits'])
+            new_course = CourseModel(code=args['code'], name=args['name'], credits=args['credits'], teacher_id=args['teacher_id'])
             db.session.add(new_course)
             db.session.commit()
             return new_course, 201
