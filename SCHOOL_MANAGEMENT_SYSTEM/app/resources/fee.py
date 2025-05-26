@@ -66,6 +66,7 @@ class Fee(Resource):
             fee.status = args['status']
             db.session.commit()
             return fee
+        
         @marshal_with(fee_fields)
         def delete(self, id):
             fee = FeeModel.query.filter_by(id=id).first()

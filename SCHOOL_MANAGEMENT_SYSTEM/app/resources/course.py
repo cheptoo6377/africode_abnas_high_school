@@ -29,7 +29,6 @@ class Courses(Resource):
     @marshal_with(course_fields)
     def post(self):
         args = course_args.parse_args()
-
         try:
             new_course = CourseModel(code=args['code'], name=args['name'], credits=args['credits'], teacher_id=args['teacher_id'])
             db.session.add(new_course)
@@ -38,6 +37,8 @@ class Courses(Resource):
         except Exception as e:
             db.session.rollback()
             abort(400, message=f"error creating a course {str(e)}")
+
+
 class Course(Resource):
     @marshal_with(course_fields)
     def get(self, id):
@@ -58,6 +59,7 @@ class Course(Resource):
         course.credits = args['credits']
         db.session.commit()
         return course
+    
     @marshal_with(course_fields)
     def delete(self, id):
         course = CourseModel.query.filter_by(id=id).first()
