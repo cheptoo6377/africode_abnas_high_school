@@ -5,8 +5,9 @@ from flask_restful import Api
 from app.resources.mealplan import Mealplan,Mealplans
 from app.resources.user import Users,User
 
-from config import Config
 
+from config import Config
+db = SQLAlchemy()
 
 app = Flask(__name__)
 
@@ -14,7 +15,7 @@ app.config['SECRET_KEY'] = '9c7122e76a4f0cdd13813494547ab17b00623d13d2e51016479f
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///api.db'
 
 
-db = SQLAlchemy(app)
+
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message = "info"
