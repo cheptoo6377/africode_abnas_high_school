@@ -1,13 +1,14 @@
 from app.extension import db
 
 
-from datetime import datetime
+from datetime import datetime,timezone
 
 
 
-class MealplanModel(db.Model,datetime):
+class MealplanModel(db.Model):
+    __tablename__ = 'mealplan'
     id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.DateTime)
+    date = db.Column(db.DateTime,default=datetime.now(timezone.utc))
     breakfast = db.Column(db.String(100), nullable=False)
     snack = db.Column(db.String(100), nullable=False)
     lunch = db.Column(db.String(100), nullable=False)

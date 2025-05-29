@@ -1,7 +1,6 @@
 from app.models.mealplan import MealplanModel
 from flask_restful import Resource, reqparse,abort,marshal_with,fields
 from app.extension import db
-from datetime import datetime
 from dateutil.parser import parse as date_parse
 # Resource for meal plans                           
 
@@ -13,10 +12,11 @@ mealplan_args.add_argument('snack', type=str, required=True, help='Snack cannot 
 mealplan_args.add_argument('lunch', type=str, required=True, help='Lunch cannot be blank')
 mealplan_args.add_argument('dinner', type=str, required=True, help='Dinner cannot be blank')
 mealplan_args.add_argument('supper', type=str, required=True, help='Supper cannot be blank')
-mealplan_args.add_argument('user_id', type=int, required=True, help='User ID cannot be blank')                                      
+mealplan_args.add_argument('user_id', type=int, required=True, help='User ID cannot be blank')   
+                                   
 mealplan_fields = {
     'id': fields.Integer,
-    'date': fields.String,
+    'date': fields.DateTime,
     'breakfast': fields.String,
     'snack': fields.String,
     'lunch': fields.String,
@@ -40,20 +40,20 @@ class Mealplans(Resource):
         args = mealplan_args.parse_args()
         try:
             new_mealplan = MealplanModel(
-                date=args['date'],
                 breakfast=args['breakfast'],
                 snack=args['snack'],
                 lunch=args['lunch'],
                 dinner=args['dinner'],
                 supper=args['supper'],
-                user_id=args['user_id']
-            )
+                user_id=args['user_id'])
+            print(new_mealplan)
             db.session.add(new_mealplan)
             db.session.commit()
+            return new_mealplan, 201
         except Exception as e:
             db.session.rollback()
-            abort(400, message='Error creating meal plan')
-        return new_mealplan, 201
+            abort(400, message=f'Error creating meal plan {e}')
+        
 class Mealplan(Resource):
     @marshal_with(mealplan_fields)
     def get(self, id):
