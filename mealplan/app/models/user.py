@@ -1,12 +1,14 @@
-from app import db
+from app.extension import db
 from flask_login import UserMixin
 from flask_login import LoginManager
+from app.models.mealplan import Mealplan
 
 from datetime import datetime
 
 
 
 class UserModel(db.Model, UserMixin):
+    __tablename__ = 'user'
   
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), nullable=False ,unique=True)

@@ -1,6 +1,6 @@
 from app.models.user import UserModel
 from flask_restful import Resource, reqparse,abort,marshal_with,fields
-from app import db
+from app.extension import db
 
 
 user_args = reqparse.RequestParser()

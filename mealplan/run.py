@@ -1,4 +1,5 @@
-from app import app,db
+from app import app
+from app.extension import db
 
 
 with app.app_context():
