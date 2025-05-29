@@ -13,7 +13,9 @@ user_fields = {
     'id': fields.Integer,
     'username': fields.String,
     'firstname': fields.String,
-    'lastname': fields.String
+    'lastname': fields.String,
+      'password': fields.String
+    
 }
 
 #resource for all users
@@ -32,7 +34,7 @@ class Users(Resource):
    def post(self):
       args = user_args.parse_args()
       try:
-         new_user = User(username=args['username'],
+         new_user = UserModel(username=args['username'],
                         firstname=args['firstname'],
                         lastname=args['lastname'],
                         password=args['password'])

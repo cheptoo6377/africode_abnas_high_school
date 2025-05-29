@@ -1,15 +1,19 @@
-from app.models.mealplan import Mealplan
+from app.models.mealplan import MealplanModel
 from flask_restful import Resource, reqparse,abort,marshal_with,fields
 from app.extension import db
+from datetime import datetime
+from dateutil.parser import parse as date_parse
+# Resource for meal plans                           
 
 
 mealplan_args = reqparse.RequestParser()
-mealplan_args.add_argument('date', type=str, required=True, help='Date cannot be blank')
+mealplan_args.add_argument('date', type=date_parse)
 mealplan_args.add_argument('breakfast', type=str, required=True, help='Breakfast cannot be blank')
 mealplan_args.add_argument('snack', type=str, required=True, help='Snack cannot be blank')
 mealplan_args.add_argument('lunch', type=str, required=True, help='Lunch cannot be blank')
 mealplan_args.add_argument('dinner', type=str, required=True, help='Dinner cannot be blank')
 mealplan_args.add_argument('supper', type=str, required=True, help='Supper cannot be blank')
+mealplan_args.add_argument('user_id', type=int, required=True, help='User ID cannot be blank')                                      
 mealplan_fields = {
     'id': fields.Integer,
     'date': fields.String,
@@ -17,14 +21,15 @@ mealplan_fields = {
     'snack': fields.String,
     'lunch': fields.String,
     'dinner': fields.String,
-    'supper': fields.String
+    'supper': fields.String,
+    'user_id': fields.Integer
 }
 
 class Mealplans(Resource):
     @marshal_with(mealplan_fields)
     # get all meal plans
     def get(self):
-        mealplans = Mealplan.query.all()
+        mealplans = MealplanModel.query.all()
         if not mealplans:
             abort(404, message='Meal plans not found')
         return mealplans
@@ -34,13 +39,14 @@ class Mealplans(Resource):
     def post(self):
         args = mealplan_args.parse_args()
         try:
-            new_mealplan = Mealplan(
+            new_mealplan = MealplanModel(
                 date=args['date'],
                 breakfast=args['breakfast'],
                 snack=args['snack'],
                 lunch=args['lunch'],
                 dinner=args['dinner'],
-                supper=args['supper']
+                supper=args['supper'],
+                user_id=args['user_id']
             )
             db.session.add(new_mealplan)
             db.session.commit()
@@ -51,7 +57,7 @@ class Mealplans(Resource):
 class Mealplan(Resource):
     @marshal_with(mealplan_fields)
     def get(self, id):
-        mealplan = Mealplan.query.filter_by(id=id).first()
+        mealplan = MealplanModel.query.filter_by(id=id).first()
         if not mealplan:
             abort(404, message='Meal plan not found')
         return mealplan
@@ -59,17 +65,18 @@ class Mealplan(Resource):
     @marshal_with(mealplan_fields)
     def patch(self, id):
         args = mealplan_args.parse_args()
-        mealplan = Mealplan.query.filter_by(id=id).first()
+        mealplan = MealplanModel.query.filter_by(id=id).first()
         if not mealplan:
             abort(404, message='Meal plan not found')
         
         for key, value in args.items():
-            setattr(mealplan, key, value)
+            if value is not None:
+               setattr(mealplan, key, value)
         
         db.session.commit()
         return mealplan
     def delete(self, id):
-        mealplan = Mealplan.query.filter_by(id=id).first()
+        mealplan = MealplanModel.query.filter_by(id=id).first()
         if not mealplan:
             abort(404, message='Meal plan not found')
         

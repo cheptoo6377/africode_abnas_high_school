@@ -5,9 +5,9 @@ from datetime import datetime
 
 
 
-class Mealplan(db.Model,datetime):
+class MealplanModel(db.Model,datetime):
     id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.DateTime, nullable=False)
+    date = db.Column(db.DateTime)
     breakfast = db.Column(db.String(100), nullable=False)
     snack = db.Column(db.String(100), nullable=False)
     lunch = db.Column(db.String(100), nullable=False)

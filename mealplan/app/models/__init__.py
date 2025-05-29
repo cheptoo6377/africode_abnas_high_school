@@ -1,2 +1,2 @@
 from app.models.user import UserModel
-from app.models.mealplan import Mealplan
+from app.models.mealplan import MealplanModel

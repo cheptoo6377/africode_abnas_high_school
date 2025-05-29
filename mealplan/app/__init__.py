@@ -30,7 +30,7 @@ api = Api(app)
 
 
 
-api.add_resource(Users, '/api/users/')
+api.add_resource(Users, '/api/users')
 api.add_resource(User, '/api/users/<int:id>')
 api.add_resource(Mealplans, '/api/mealplans')
 api.add_resource(Mealplan, '/api/mealplans/<int:id>')

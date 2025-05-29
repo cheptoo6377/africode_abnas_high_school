@@ -1,7 +1,7 @@
 from app.extension import db
 from flask_login import UserMixin
 from flask_login import LoginManager
-from app.models.mealplan import Mealplan
+from app.models.mealplan import MealplanModel 
 
 from datetime import datetime
 
@@ -15,6 +15,6 @@ class UserModel(db.Model, UserMixin):
     firstname = db.Column(db.String(50), nullable=False)  
     lastname = db.Column(db.String(50), nullable=False)   
     password = db.Column(db.String(100), nullable=False)
-    meal = db.relationship('Mealplan', backref='user', lazy=True)
+    meal = db.relationship('MealplanModel', backref='user', lazy=True)
     def __repr__(self):
         return f'{self.firstname}'
