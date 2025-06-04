@@ -6,6 +6,8 @@ from app.api.routes import api_bp
 from app.auth.routes import auth_bp
 from config import Config
 from app.models.user import User,Role
+from app.models.county import County,Department
+from app.forms import ExtendedLoginForm,ExtendedRegisterForm
 import uuid
 
 
@@ -28,14 +30,61 @@ def create_app():
     app.register_blueprint(api_bp)
     app.register_blueprint(auth_bp)
     
+    #custom user registration handler
+    from flask_security.signals import user_registered
+    @user_registered.connect_via(app)
+    def user_registered_sighandler(sender, user, confirm_token, **extra):     
+        """Handle post-registration logic"""                                  
+        # Assign default 'Citizen' role                                       
+        default_role = Role.query.filter_by(name='Citizen').first()           
+        if default_role and not user.roles:                                   
+            user.roles.append(default_role)                                   
+            db.session.commit()                                               
+                                                                                
+        print(f"New user registered: {user.email} in {user.county.name if user.county else 'No County'}")
+
     #import models
     user_datastore = SQLAlchemyUserDatastore(db,User,Role)
-    security.init_app(app,user_datastore)
+    security.init_app(app,user_datastore,register_form=ExtendedRegisterForm,login_form=ExtendedLoginForm)
     
 
     with app.app_context():
         db.create_all()
+        
 
+        # Create sample counties                                                  
+        counties_data = [                                                         
+            {'name': 'Bomet County', 'code': '036', 'description': 'Kipsisgis County'},                                                                       
+            {'name': 'Narok County', 'code': '033', 'description': 'Maa county'},                                                                       
+            {'name': 'Kericho County', 'code': '035', 'description': 'Green county'},                                                                       
+        ]
+       
+        created_counties = []
+        for county_data in counties_data:
+            county = County.query.filter_by(name=county_data['name']).first()
+            if not county:
+                county = County(**county_data)
+                db.session.add(county)
+                created_counties.append(county)
+            else:
+                created_counties.append(county)
+        db.session.commit()
+        
+
+        # Create sample departments for each county
+    
+        departments_data = [
+            {'name': 'Trade & Commerce', 'code': 'TC'},
+            {'name': 'Lands & Housing', 'code': 'LH'},
+            {'name': 'Health Services', 'code': 'HS'},
+            {'name': 'Environment & Water', 'code': 'EW'},
+        ]
+        for dept_data in departments_data:
+            department = Department.query.filter_by(name=dept_data['name'], county_id=dept_data['county_id']).first()
+            if not department:
+                department = Department(**dept_data)
+                db.session.add(department)
+        db.session.commit()
         roles_data = [
             {'name': 'super_admin', 'description': 'Administrator role'},
             {'name': 'staff', 'description': 'Regular staff role'},
@@ -53,7 +102,8 @@ def create_app():
                 admin_role = Role(name='super_admin', description='Administrator role')
                 db.session.add(admin_role)
             if not admin_user:
-                admin_user = User(email='cheptoodorothy69@example.com', password=hash_password('@Cheptoo6377'),active=True,roles=[admin_role]
+                admin_user = User(email='cheptoodorothy69@example.com', first_name = 'deom',last_name = 'cysry',county_id = created_counties['036'].id,
+                                  password=hash_password('@Cheptoo6377'),active=True,roles=[admin_role]
                                   ,fs_uniquifier=str(uuid.uuid4()))
                 db.session.add(admin_user)
                 db.session.commit()
@@ -91,5 +141,8 @@ def create_app():
             if not new_guest:
                 new_guest = User(email='guesty@example.com', password=hash_password('My1234569'), active=True, roles=[guest_role], fs_uniquifier=str(uuid.uuid4()))
                 db.session.add(new_guest)
+        
+
+        
 
     return app
