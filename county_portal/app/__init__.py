@@ -79,12 +79,16 @@ def create_app():
             {'name': 'Health Services', 'code': 'HS'},
             {'name': 'Environment & Water', 'code': 'EW'},
         ]
-        for dept_data in departments_data:
-            department = Department.query.filter_by(name=dept_data['name'], county_id=dept_data['county_id']).first()
-            if not department:
-                department = Department(**dept_data)
-                db.session.add(department)
+ 
+
+        for county in created_counties:
+         for dept_data in departments_data:
+          department = Department.query.filter_by(name=dept_data['name'], county_id=county.id).first()
+        if not department:
+            department = Department(name=dept_data['name'], code=dept_data['code'], county_id=county.id)
+            db.session.add(department)
         db.session.commit()
+# ...existing code...
         roles_data = [
             {'name': 'super_admin', 'description': 'Administrator role'},
             {'name': 'staff', 'description': 'Regular staff role'},
@@ -102,9 +106,12 @@ def create_app():
                 admin_role = Role(name='super_admin', description='Administrator role')
                 db.session.add(admin_role)
             if not admin_user:
-                admin_user = User(email='cheptoodorothy69@example.com', first_name = 'deom',last_name = 'cysry',county_id = created_counties['036'].id,
-                                  password=hash_password('@Cheptoo6377'),active=True,roles=[admin_role]
-                                  ,fs_uniquifier=str(uuid.uuid4()))
+                admin_user = User(email='cheptoodorothy69@example.com', 
+                                  first_name = 'deom',last_name = 'cysry',
+                                  county_id = 34,
+                                  password=hash_password('@Cheptoo6377'),
+                                  active=True,roles=[admin_role],
+                                  fs_uniquifier=str(uuid.uuid4()))
                 db.session.add(admin_user)
                 db.session.commit()
                 print("Admin user created with email:", admin_user.email)
