@@ -36,7 +36,7 @@ def create_app():
     def user_registered_sighandler(sender, user, confirm_token, **extra):     
         """Handle post-registration logic"""                                  
         # Assign default 'Citizen' role                                       
-        default_role = Role.query.filter_by(name='Citizen').first()           
+        default_role = Role.query.filter_by(name='citizen').first()           
         if default_role and not user.roles:                                   
             user.roles.append(default_role)                                   
             db.session.commit()                                               
