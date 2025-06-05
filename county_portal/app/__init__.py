@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_security import SQLAlchemyUserDatastore,hash_password
-from app.extension import db,migrate,mail,security
+from app.extension import db,migrate,mail,security,csrf
 from app.main.views import main_bp
 from app.api.routes import api_bp
 from app.auth.routes import auth_bp
@@ -8,6 +8,7 @@ from config import Config
 from app.models.user import User,Role
 from app.models.county import County,Department
 from app.forms import ExtendedLoginForm,ExtendedRegisterForm
+
 import uuid
 
 
@@ -17,6 +18,7 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app,db)
     mail.init_app(app)
+    csrf.init_app(app)
 
 
 
