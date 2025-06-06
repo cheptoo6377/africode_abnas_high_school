@@ -58,8 +58,7 @@ class PermitApplication(db.Model):
                                                                                   
         id = db.Column(db.Integer, primary_key=True)                              
         application_number = db.Column(db.String(50), unique=True, nullable=False,
-                                     default=lambda: f"APP{uuid.uuid4().hex[:8].  
-  upper()}")                                                                      
+                                     default=lambda: f"APP{uuid.uuid4().hex[:8].upper()}")                                                                      
                                                                                   
         # Relationships - connects to your existing user and county structure     
         user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
@@ -113,8 +112,7 @@ class PermitApplication(db.Model):
   lazy='dynamic', cascade='all, delete-orphan')                                   
                                                                                   
         def __repr__(self):                                                       
-            return f'<PermitApplication {self.application_number} - {self.        
-  status}>'                                                                       
+            return f'<PermitApplication {self.application_number} - {self.status}>'                                                                       
                                                                                   
         def add_status_change(self, new_status, user_id, comment=None):           
             """Add status change to history with audit trail"""                   

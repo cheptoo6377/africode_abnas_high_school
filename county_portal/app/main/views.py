@@ -92,6 +92,26 @@ def staff_dashboard():
         'completed': 0,
         'citizens': county.users.filter(User.roles.any(Role.name == UserRoles.CITIZEN)).count()
     }
+    applications = []                                                         
+    if current_user.department_id:                                            
+            applications = PermitApplication.query.filter_by(                     
+                department_id=current_user.department_id,                         
+                county_id=current_user.county_id                                  
+            ).order_by(PermitApplication.submitted_at.desc()).all()               
+                                                                                  
+        # Calculate statistics                                                    
+    stats = {                                                                 
+            'total_applications': len(applications),                              
+            'pending_review': len([app for app in applications if app.status ==   
+  'Submitted']),                                                                  
+            'under_review': len([app for app in applications if app.status ==     
+  'Under Review']),                                                               
+            'completed': len([app for app in applications if app.status in        
+  ['Approved', 'Rejected']])                                                      
+        }                                                                         
+                                                                                  
+        # Get recent applications (last 10)                                       
+    recent_applications = applications[:10]
         #  **********************************ends here************                                                                   # 
     return render_template('main/staff_dashboard.html',                       
                         county=county,                                       
@@ -158,8 +178,7 @@ def apply_permit():
             return redirect(url_for('main_bp.dashboard'))                         
                                                                                   
         if not current_user.county_id:                                            
-            flash('You must be assigned to a county to apply for permits.',       
-  'error')                                                                        
+            flash('You must be assigned to a county to apply for permits.',        'error')                                                                        
             return redirect(url_for('main_bp.dashboard'))                         
                                                                                   
         form = PermitApplicationForm()                                            
@@ -195,13 +214,11 @@ def apply_permit():
                 if file.filename:                                                 
                     filename = secure_filename(file.filename)                     
                     # Create uploads directory if it doesn't exist                
-                    upload_dir = os.path.join(current_app.instance_path, 'uploads',
-  'permits')                                                                      
+                    upload_dir = os.path.join(current_app.instance_path, 'uploads','permits')                                                                      
                     os.makedirs(upload_dir, exist_ok=True)                        
                                                                                   
                     # Save file with unique name                                  
-                    unique_filename = f"{application.                             
-  application_number}_{filename}"                                                 
+                    unique_filename = f"{application.application_number}_{filename}"                                                 
                     file_path = os.path.join(upload_dir, unique_filename)         
                     file.save(file_path)                                          
                                                                                   
@@ -218,8 +235,7 @@ def apply_permit():
                     db.session.add(document)                                      
                                                                                   
             # Add initial status to history                                       
-            application.add_status_change('Submitted', current_user.id,           
-  'Application submitted by citizen')                                             
+            application.add_status_change('Submitted', current_user.id,   'Application submitted by citizen')                                             
                                                                                   
             db.session.commit()                                                   
                                                                                   
@@ -272,12 +288,10 @@ def review_permit(permit_id):
                                                                                   
             db.session.commit()                                                   
                                                                                   
-            flash(f'Application {form.status.data.lower()} successfully!',        
-  'success')                                                                      
+            flash(f'Application {form.status.data.lower()} successfully!', 'success')                                                                      
             return redirect(url_for('main_bp.permit_detail', permit_id=permit_id))
                                                                                   
-        return render_template('main/review_permit.html', application=application,
-  form=form)                                                                      
+        return render_template('main/review_permit.html', application=application,form=form)                                                                      
                                                                                   
     # Add this helper function                                                    
 def can_access_permit(application):                                           
