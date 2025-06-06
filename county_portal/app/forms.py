@@ -1,9 +1,10 @@
 from flask_security import RegisterForm,LoginForm
 from flask_security.forms import Form,Length
 from wtforms import (StringField,SelectField,TextAreaField,TelField,BooleanField,SelectMultipleField,
-                  TextAreaField, DecimalField, IntegerField, HiddenField,FileField,FileAllowed)   
+                  TextAreaField, DecimalField, IntegerField, HiddenField,FileField)   
+from flask_wtf.file import FileAllowed
 from wtforms.validators import DataRequired,Optional,ValidationError
-from wtforms.widgets import CheckboxInput,ListWidget,Textarea
+from wtforms.widgets import CheckboxInput,ListWidget
 from werkzeug.datastructures import MultiDict
 from app.models.county import County,Department
 from app.models.user import Role
