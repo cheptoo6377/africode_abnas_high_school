@@ -1,6 +1,6 @@
 from flask import Blueprint, flash,redirect, url_for, render_template,current_app
 from flask_security import login_required ,roles_required,current_user
-from app.extensions import db
+from app.extension import db
 from app.models.county import County, Department
 from app.models.user import Role, User
 from app.utils.constants import UserRoles

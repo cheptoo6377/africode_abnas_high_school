@@ -185,6 +185,7 @@ def create_app():
 
         roles_data = [
             {'name': 'super_admin', 'description': 'Administrator role'},
+            {'name': 'county_admin', 'description': 'Administrator role for a specific county'},
             {'name': 'staff', 'description': 'Regular staff role'},
             {'name': 'citizen', 'description': 'Citizen role'},
             {'name': 'guest', 'description': 'Guest role'}
@@ -215,6 +216,26 @@ def create_app():
             db.session.add(admin_user)
             db.session.commit()
             print("Admin user created with email:", admin_user.email)
+
+        county_admin_role = Role.query.filter_by(name='county_admin').first()
+        county_admin_user = User.query.filter_by(email='county_admin@example.com').first()
+        if not county_admin_role:
+            county_admin_role = Role(name='county_admin', description='Administrator role for a specific county')
+            db.session.add(county_admin_role)
+        if not county_admin_user:
+            county_admin_user = User(
+                email='county_admin@example.com',
+                first_name='County',
+                last_name='Admin',
+                county_id=34,
+                password=hash_password('County1234'),
+                active=True,
+                roles=[county_admin_role],
+                fs_uniquifier=str(uuid.uuid4())
+            )
+            db.session.add(county_admin_user)
+        db.session.commit()
+        print("County admin user created with email:", county_admin_user.email)
 
         staff_role = Role.query.filter_by(name='staff').first()
         new_staff = User.query.filter_by(email='vcctgk@gmail.com').first()
